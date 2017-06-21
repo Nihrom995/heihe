@@ -40,7 +40,14 @@ gulp.task('styles:compile', function () {
         .pipe(rename("main.min.css"))
         .pipe(gulp.dest('build/css'));
 });
+gulp.task('styles:compile:bootstrap', function () {
 
+    return bootstrap = gulp.src('source/styles/bootstrap/bootstrap.scss')
+        .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
+        .pipe(rename("bootstrap.min.css"))
+        .pipe(gulp.dest('build/css'));
+
+});
 /*---------------------- Sprites ------------------------*/
 gulp.task('sprite', function (cb) {
 
@@ -83,11 +90,12 @@ gulp.task('copy', gulp.parallel('copy:fonts', 'copy:images'));
 gulp.task('watch', function() {
     gulp.watch('source/template/**/*.pug', gulp.series('templates:compile'));
     gulp.watch('source/styles/**/*.scss', gulp.series('styles:compile'));
+    gulp.watch('source/styles/bootstrap/**/*.scss', gulp.series('styles:compile:bootstrap'));
 });
 
 gulp.task('default', gulp.series(
     'clean',
-    gulp.parallel('templates:compile', 'styles:compile', 'sprite', 'copy'),
+    gulp.parallel('templates:compile', 'styles:compile', 'styles:compile:bootstrap', 'sprite', 'copy'),
     gulp.parallel('watch', 'server')
     )
 );
