@@ -1,0 +1,35 @@
+.header_info{
+  height: 110px;
+  padding: 20px 0;
+
+  &_contacts{
+    display: flex;
+    justify-content: space-between;
+  }
+
+  & .contact_block{
+    display: flex;
+    justify-content: space-around;
+
+
+    &_icon{
+      position: relative;
+      font-size: 1.3rem;
+      width: 23px;
+
+      & .fa{
+        @include centerer-y();
+      }
+
+    }
+
+    &_content_text{
+      display: block;
+      font-size:1.25rem;
+      line-height: 1rem;
+      color: $secondary-color;
+      font-weight: 500;
+      letter-spacing: -1px;
+    }
+  }
+}

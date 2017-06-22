@@ -35,7 +35,7 @@ gulp.task('templates:compile', function buildHTML() {
 /*---------------------- SASS Compile ------------------------*/
 gulp.task('styles:compile', function () {
     return gulp.src('source/styles/main.scss')
-        .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
+        .pipe(sass().on('error', sass.logError)) //{outputStyle: 'compressed'}
         .pipe(autoprefixer())
         .pipe(rename("main.min.css"))
         .pipe(gulp.dest('build/css'));
@@ -105,7 +105,8 @@ gulp.task('copy', gulp.parallel('copy:fonts', 'copy:images', 'copy:js'));
 /* ------------ Watchers ------------- */
 gulp.task('watch', function() {
     gulp.watch('source/template/**/*.pug', gulp.series('templates:compile'));
-    gulp.watch('source/styles/main.scss', gulp.series('styles:compile'));
+    gulp.watch(['source/styles/**/*.scss', '!source/styles/bootstrap.scss'], gulp.series('styles:compile'));
+
     gulp.watch('source/styles/bootstrap.scss', gulp.series('styles:compile:bootstrap'));
 });
 
