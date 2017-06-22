@@ -42,12 +42,13 @@ gulp.task('styles:compile', function () {
 });
 gulp.task('styles:compile:bootstrap', function () {
 
-    return bootstrap = gulp.src('source/styles/bootstrap/bootstrap.scss')
+    return bootstrap = gulp.src('source/styles/bootstrap.scss')
         .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
         .pipe(rename("bootstrap.min.css"))
         .pipe(gulp.dest('build/css'));
 
 });
+
 /*---------------------- Sprites ------------------------*/
 gulp.task('sprite', function (cb) {
 
@@ -61,6 +62,15 @@ gulp.task('sprite', function (cb) {
     spriteData.css.pipe(gulp.dest('source/styles/global/'));
 
     cb();
+});
+
+/* --------  js -------- */
+gulp.task('js', function() {
+    return gulp.src([
+        'node_modules/bootstrap/dist/js/bootstrap.min.js',
+        'node_modules/jquery/dist/jquery.min.js',
+        'source/js/common.js'
+    ]).pipe(gulp.dest('build/js'));
 });
 
 /*---------------------- Delete ------------------------*/
@@ -82,20 +92,26 @@ gulp.task('copy:images', function () {
         .pipe(gulp.dest('build/images'));
 });
 
+/*---------------------- Copy Js ------------------------*/
+gulp.task('copy:js', function () {
+    return gulp.src('./source/js/**/*.*')
+        .pipe(gulp.dest('build/js'));
+});
+
 /*---------------------- Copy ------------------------*/
-gulp.task('copy', gulp.parallel('copy:fonts', 'copy:images'));
+gulp.task('copy', gulp.parallel('copy:fonts', 'copy:images', 'copy:js'));
 
 
 /* ------------ Watchers ------------- */
 gulp.task('watch', function() {
     gulp.watch('source/template/**/*.pug', gulp.series('templates:compile'));
-    gulp.watch('source/styles/**/*.scss', gulp.series('styles:compile'));
-    gulp.watch('source/styles/bootstrap/**/*.scss', gulp.series('styles:compile:bootstrap'));
+    gulp.watch('source/styles/main.scss', gulp.series('styles:compile'));
+    gulp.watch('source/styles/bootstrap.scss', gulp.series('styles:compile:bootstrap'));
 });
 
 gulp.task('default', gulp.series(
     'clean',
-    gulp.parallel('templates:compile', 'styles:compile', 'styles:compile:bootstrap', 'sprite', 'copy'),
+    gulp.parallel('templates:compile', 'styles:compile', 'styles:compile:bootstrap', 'js', 'sprite', 'copy'),
     gulp.parallel('watch', 'server')
     )
 );

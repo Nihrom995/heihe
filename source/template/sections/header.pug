@@ -8,9 +8,41 @@ header.header
                     img(src="images/logo.png")
 
             .col
-                .row.no-gutters
-                    .col
-                        .contact_block
-                            .contact_block_icon
-                                i.fa.fa-map-marker(aria-hidden="true")
+                .header_info_contacts
 
+                    .contact_block
+                        .contact_block_icon
+                            i.fa.fa-map-marker(aria-hidden="true")
+
+                        .contact_block_content
+                            .contact_block_content_sub_text мы находимся:
+                            address.contact_block_content_text г. Хэйхэ, ул. Хайлайнь, 181
+
+                    .contact_block
+                        .contact_block_icon
+                            i.fa.fa-map-marker(aria-hidden="true")
+
+                        .contact_block_content
+                            .contact_block_content_sub_text мы открыты:
+                            .contact_block_content_text 09:00 - 21:00
+
+
+                    .contact_block
+                        .contact_block_icon
+                            i.fa.fa-map-marker(aria-hidden="true")
+
+                        .contact_block_content
+                            .contact_block_content_sub_text свяжитесь с нами:
+                            a.contact_block_content_text(href="tel:+7(914)-956-59-86") +7(914)-956-59-86
+
+    .header_navbar
+        nav.navbar.navbar-toggleable-md.navbar-light.bg-primary
+            .container
+                a.navbar-brand(href="#") Navbar
+                button( class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false")
+                    span.navbar-toggler-icon
+
+                .collapse.navbar-collapse(id="navbarNav")
+                    ul.navbar-nav
+                        li.nav-item
+                            a.nav-link(href="#") Главная
